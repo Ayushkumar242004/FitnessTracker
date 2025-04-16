@@ -45,6 +45,7 @@ export function AchievementHall() {
     y.set(0)
   }
 
+  
   // Achievement data
   const achievements: Achievement[] = [
     {

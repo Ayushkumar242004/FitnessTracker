@@ -29,6 +29,7 @@ export function CyberSidebar({ onButtonClick }: CyberSidebarProps) {
     { icon: Home, label: "Dashboard", active: true, sectionId: "top-bar" },
     { icon: Activity, label: "Workouts", active: false, sectionId: "power-up" },
     { icon: Flame, label: "Challenges", active: false, sectionId: "challenges" },
+    { icon: BarChart2, label: "Progress", active: false, sectionId: "top-bar" },
     { icon: Award, label: "Achievements", active: false, sectionId: "achievements" },
     { icon: Calendar, label: "Schedule", active: false, sectionId: "schedule" },
   ]
@@ -62,7 +63,7 @@ export function CyberSidebar({ onButtonClick }: CyberSidebarProps) {
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   
-  const rotateX = useTransform(y, [-100, 100], [5, -5])
+  const rotateX = useTransform(y, [0, 0], [5, -5])
   const rotateY = useTransform(x, [-100, 100], [-5, 5])
 
   function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
@@ -99,13 +100,19 @@ export function CyberSidebar({ onButtonClick }: CyberSidebarProps) {
         {isOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
+      {/* Backdrop for mobile */}
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setIsOpen(false)}
+          className="fixed inset-0 z-30 bg-black/50 backdrop-blur-sm md:hidden"
+        />
+      )}
+
       <SidebarProvider>
-        <div
-          className={cn(
-            "fixed inset-y-0 left-0 z-40 w-64 transform transition-transform duration-300 ease-in-out md:translate-x-0",
-            isOpen ? "translate-x-0" : "-translate-x-full",
-          )}
-        >
+        <div className="fixed inset-y-0 left-0 z-40 w-64 h-full md:relative">
           <motion.div
             style={{
               rotateX,
@@ -114,9 +121,13 @@ export function CyberSidebar({ onButtonClick }: CyberSidebarProps) {
             }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="h-full"
+            className={cn(
+              "h-full transform transition-transform duration-300 ease-in-out",
+              "md:translate-x-0",
+              isOpen ? "translate-x-0" : "-translate-x-full"
+            )}
           >
-            <Sidebar className="border-r border-purple-500/20 bg-black/80 backdrop-blur-xl overflow-hidden">
+            <Sidebar className="border-r border-purple-500/20 bg-black/80 backdrop-blur-xl overflow-hidden h-full">
               {/* Cyber grid background */}
               <div className="absolute inset-0 opacity-20 pointer-events-none">
                 {Array.from({ length: 20 }).map((_, i) => (
@@ -152,7 +163,7 @@ export function CyberSidebar({ onButtonClick }: CyberSidebarProps) {
               <motion.div 
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                  background: `radial-gradient(300px at ${glowPosition.x}px ${glowPosition.y}px, rgba(168, 85, 247, 0.15), transparent 80%)`
+                  background: `radial-gradient(300px at ${glowPosition.x}px ${glowPosition.y}px, rgba(168, 85, 247, 0.17), transparent 80%)`
                 }}
                 animate={{
                   opacity: [0.3, 0.5, 0.3]

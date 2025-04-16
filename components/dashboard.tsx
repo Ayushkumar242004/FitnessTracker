@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { CyberSidebar } from "@/components/cyber-sidebar";
 import { FitnessMetrics } from "@/components/fitness-metrics";
@@ -9,13 +9,13 @@ import { LegendsHall } from "@/components/legends-hall";
 import { AnimeWorkoutQuotes } from "@/components/prevOlympia";
 import { CyberChallenges } from "@/components/challenge";
 import { PowerUpZone } from "@/components/power-up-zone";
-import { AnimeTrainingSchedule } from "@/components/schedule"
+import { AnimeTrainingSchedule } from "@/components/schedule";
 import { CyberBackground } from "@/components/cyber-background";
 import { WeatherWidget } from "@/components/weather-widget";
 import { TimeTracker } from "@/components/time-tracker";
 import { UserProfile } from "@/components/user-profile";
 import { useAudio } from "@/hooks/use-audio";
-import { AchievementHall } from "@/components/achievement"
+import { AchievementHall } from "@/components/achievement";
 
 export default function Dashboard() {
   const [theme, setTheme] = useState<
@@ -24,8 +24,49 @@ export default function Dashboard() {
   const [showAssistant, setShowAssistant] = useState(true);
   const { playSound } = useAudio();
 
-  const handleButtonClick = () => {
-   
+  // Create refs for each section
+  const topBarRef = useRef<HTMLDivElement>(null);
+  const powerUpRef = useRef<HTMLDivElement>(null);
+  const challengesRef = useRef<HTMLDivElement>(null);
+  const legendsHallRef = useRef<HTMLDivElement>(null);
+  const quotesRef = useRef<HTMLDivElement>(null);
+  const scheduleRef = useRef<HTMLDivElement>(null);
+  const achievementsRef = useRef<HTMLDivElement>(null);
+
+  const handleButtonClick = (section?: string) => {
+    let ref;
+    switch (section) {
+      case "top-bar":
+        ref = topBarRef;
+        break;
+      case "power-up":
+        ref = powerUpRef;
+        break;
+      case "challenges":
+        ref = challengesRef;
+        break;
+      case "legends-hall":
+        ref = legendsHallRef;
+        break;
+      case "quotes":
+        ref = quotesRef;
+        break;
+      case "schedule":
+        ref = scheduleRef;
+        break;
+      case "achievements":
+        ref = achievementsRef;
+        break;
+      default:
+        return;
+    }
+
+    if (ref?.current) {
+      ref.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
 
   return (
@@ -45,6 +86,7 @@ export default function Dashboard() {
           <div className="col-span-2 space-y-6">
             {/* Top Bar */}
             <motion.div
+              ref={topBarRef}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -63,6 +105,7 @@ export default function Dashboard() {
 
             {/* Power Up */}
             <motion.div
+              ref={powerUpRef}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -70,14 +113,15 @@ export default function Dashboard() {
               <PowerUpZone onButtonClick={handleButtonClick} />
             </motion.div>
 
+            {/* Challenges */}
             <motion.div
+              ref={challengesRef}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <CyberChallenges onButtonClick={handleButtonClick} />
             </motion.div>
-
           </div>
 
           {/* Right Section */}
@@ -94,13 +138,23 @@ export default function Dashboard() {
               />
             )}
 
-            <LegendsHall onButtonClick={handleButtonClick} />
-            <AnimeWorkoutQuotes onButtonClick={handleButtonClick} />
-            <AnimeTrainingSchedule onButtonClick={handleButtonClick} />
+            <div ref={legendsHallRef}>
+              <LegendsHall onButtonClick={handleButtonClick} />
+            </div>
+
+            <div ref={quotesRef}>
+              <AnimeWorkoutQuotes onButtonClick={handleButtonClick} />
+            </div>
+
+            <div ref={scheduleRef}>
+              <AnimeTrainingSchedule onButtonClick={handleButtonClick} />
+            </div>
           </motion.div>
         </div>
-        <AchievementHall />
 
+        <div ref={achievementsRef}>
+          <AchievementHall />
+        </div>
       </main>
     </div>
   );

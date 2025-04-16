@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sidebar"
 
 interface CyberSidebarProps {
-  onButtonClick: () => void
+  onButtonClick: (sectionId?: string) => void
 }
 
 export function CyberSidebar({ onButtonClick }: CyberSidebarProps) {
@@ -26,13 +26,11 @@ export function CyberSidebar({ onButtonClick }: CyberSidebarProps) {
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; size: number }>>([])
 
   const menuItems = [
-    { icon: Home, label: "Dashboard", active: true },
-    { icon: Activity, label: "Workouts", active: false },
-    { icon: Flame, label: "Challenges", active: false },
-    { icon: BarChart2, label: "Progress", active: false },
-    { icon: Award, label: "Achievements", active: false },
-    { icon: Calendar, label: "Schedule", active: false },
-   
+    { icon: Home, label: "Dashboard", active: true, sectionId: "top-bar" },
+    { icon: Activity, label: "Workouts", active: false, sectionId: "power-up" },
+    { icon: Flame, label: "Challenges", active: false, sectionId: "challenges" },
+    { icon: Award, label: "Achievements", active: false, sectionId: "achievements" },
+    { icon: Calendar, label: "Schedule", active: false, sectionId: "schedule" },
   ]
 
   // Floating particles effect
@@ -82,6 +80,11 @@ export function CyberSidebar({ onButtonClick }: CyberSidebarProps) {
   function handleMouseLeave() {
     animate(x, 0, { duration: 0.5 })
     animate(y, 0, { duration: 0.5 })
+  }
+
+  const handleMenuItemClick = (sectionId: string) => {
+    setIsOpen(false)
+    onButtonClick(sectionId)
   }
 
   return (
@@ -162,7 +165,10 @@ export function CyberSidebar({ onButtonClick }: CyberSidebarProps) {
               />
 
               <SidebarHeader className="p-4 relative z-10">
-                <div className="flex items-center space-x-2">
+                <div 
+                  className="flex items-center space-x-2 cursor-pointer"
+                  onClick={() => handleMenuItemClick('top-bar')}
+                >
                   <motion.div 
                     className="relative"
                     whileHover={{ scale: 1.05 }}
@@ -219,7 +225,7 @@ export function CyberSidebar({ onButtonClick }: CyberSidebarProps) {
                       >
                         <SidebarMenuButton
                           isActive={item.active}
-                          onClick={onButtonClick}
+                          onClick={() => handleMenuItemClick(item.sectionId)}
                           className={cn(
                             "group relative w-full overflow-hidden",
                             "before:absolute before:inset-0 before:w-0 before:bg-gradient-to-r before:from-purple-600/20 before:to-pink-600/20 before:transition-all before:duration-500 hover:before:w-full",
@@ -278,6 +284,7 @@ export function CyberSidebar({ onButtonClick }: CyberSidebarProps) {
                     y: -2,
                     boxShadow: '0 10px 25px -5px rgba(168, 85, 247, 0.1)'
                   }}
+                  onClick={() => handleMenuItemClick('profile')}
                 >
                   <div className="flex items-center space-x-3">
                     <motion.div 

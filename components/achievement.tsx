@@ -27,8 +27,8 @@ export function AchievementHall() {
   // 3D tilt effect
   const x = useMotionValue(0)
   const y = useMotionValue(0)
-  const springX = useSpring(x, { stiffness: 300, damping: 30 })
-  const springY = useSpring(y, { stiffness: 300, damping: 30 })
+  const springX = useSpring(x, { stiffness: 10, damping: 30 })
+  const springY = useSpring(y, { stiffness: 50, damping: 30 })
   
   // Reduced rotation from ±10° to ±6°
   const rotateX = useTransform(springY, [-100, 100], [6, -6])

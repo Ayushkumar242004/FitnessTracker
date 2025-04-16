@@ -33,7 +33,7 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
       anime: "Naruto",
       quote: "Wake up early and run like Rock Lee!",
       intensity: "High",
-      image: "/naruto-run.png",
+      image: "/e1.png",
       bg: "bg-gradient-to-br from-orange-500 to-yellow-400",
       icon: <Flame className="h-5 w-5" />
     },
@@ -44,7 +44,7 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
       anime: "Dragon Ball Z",
       quote: "Push beyond your limits like Goku!",
       intensity: "Extreme",
-      image: "/gravity-chamber.png",
+      image: "/e2.png",
       bg: "bg-gradient-to-br from-blue-600 to-purple-700",
       icon: <Zap className="h-5 w-5" />
     },
@@ -55,7 +55,7 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
       anime: "Attack on Titan",
       quote: "Strengthen your core like Levi!",
       intensity: "Medium",
-      image: "/odm-gear.png",
+      image: "/e3.png",
       bg: "bg-gradient-to-br from-gray-800 to-blue-900",
       icon: <Sword className="h-5 w-5" />
     },
@@ -66,7 +66,7 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
       anime: "My Hero Academia",
       quote: "Build strength like All Might!",
       intensity: "High",
-      image: "/all-might.png",
+      image: "/e4.png",
       bg: "bg-gradient-to-br from-red-500 to-yellow-500",
       icon: <Dumbbell className="h-5 w-5" />
     },
@@ -77,7 +77,7 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
       anime: "One Punch Man",
       quote: "100 push-ups, 100 sit-ups, 100 squats!",
       intensity: "Legendary",
-      image: "/saitama.png",
+      image: "/e5.png",
       bg: "bg-gradient-to-br from-yellow-400 to-red-500",
       icon: <Shield className="h-5 w-5" />
     }

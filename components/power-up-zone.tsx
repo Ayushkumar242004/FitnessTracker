@@ -71,7 +71,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 duration="45 min"
                 intensity="High"
                 exercises={5}
-                image="/placeholder.svg?height=200&width=400"
+                image="/fit2.png?height=200&width=400"
                 onButtonClick={onButtonClick}
               />
               <WorkoutCard
@@ -80,7 +80,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 duration="30 min"
                 intensity="Very High"
                 exercises={8}
-                image="/placeholder.svg?height=200&width=400"
+                image="/neural.png"
                 onButtonClick={onButtonClick}
               />
               <WorkoutCard
@@ -89,7 +89,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 duration="40 min"
                 intensity="Low"
                 exercises={12}
-                image="/placeholder.svg?height=200&width=400"
+                image="/detox1.png"
                 onButtonClick={onButtonClick}
               />
               <WorkoutCard
@@ -98,7 +98,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 duration="25 min"
                 intensity="Medium"
                 exercises={6}
-                image="/placeholder.svg?height=200&width=400"
+                image="/core.png"
                 onButtonClick={onButtonClick}
               />
             </div>
@@ -111,7 +111,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 tracks={12}
                 duration="48 min"
                 mood="Energetic"
-                image="/placeholder.svg?height=200&width=400"
+                image="/play1.png"
                 onButtonClick={onButtonClick}
               />
               <PlaylistCard
@@ -119,7 +119,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 tracks={15}
                 duration="62 min"
                 mood="Intense"
-                image="/placeholder.svg?height=200&width=400"
+                image="/play2.png"
                 onButtonClick={onButtonClick}
               />
               <PlaylistCard
@@ -127,7 +127,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 tracks={10}
                 duration="55 min"
                 mood="Focused"
-                image="/placeholder.svg?height=200&width=400"
+                image="/play3.png"
                 onButtonClick={onButtonClick}
               />
               <PlaylistCard
@@ -135,7 +135,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 tracks={14}
                 duration="67 min"
                 mood="Upbeat"
-                image="/placeholder.svg?height=200&width=400"
+                image="/play4.png"
                 onButtonClick={onButtonClick}
               />
             </div>
@@ -149,7 +149,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 protein={35}
                 carbs={40}
                 fats={15}
-                image="/placeholder.svg?height=200&width=400"
+                image="/food1.png"
                 onButtonClick={onButtonClick}
               />
               <NutritionCard
@@ -158,7 +158,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 protein={20}
                 carbs={45}
                 fats={8}
-                image="/placeholder.svg?height=200&width=400"
+                image="/food3.png"
                 onButtonClick={onButtonClick}
               />
               <NutritionCard
@@ -167,7 +167,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 protein={30}
                 carbs={65}
                 fats={12}
-                image="/placeholder.svg?height=200&width=400"
+                image="/food2.png"
                 onButtonClick={onButtonClick}
               />
               <NutritionCard
@@ -176,7 +176,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 protein={42}
                 carbs={70}
                 fats={18}
-                image="/placeholder.svg?height=200&width=400"
+                image="/food4.png"
                 onButtonClick={onButtonClick}
               />
             </div>
@@ -203,7 +203,7 @@ function WorkoutCard({ title, level, duration, intensity, exercises, image, onBu
       whileHover={{ y: -5, transition: { duration: 0.2 } }}
       className="group relative overflow-hidden rounded-lg border border-purple-500/20 bg-purple-950/10"
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-60"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-80"></div>
       <img
         src={image || "/placeholder.svg"}
         alt={title}
@@ -253,7 +253,7 @@ function PlaylistCard({ title, tracks, duration, mood, image, onButtonClick }: P
       whileHover={{ y: -5, transition: { duration: 0.2 } }}
       className="group relative overflow-hidden rounded-lg border border-cyan-500/20 bg-cyan-950/10"
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-60"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-80"></div>
       <img
         src={image || "/placeholder.svg"}
         alt={title}
@@ -308,7 +308,7 @@ function NutritionCard({ title, calories, protein, carbs, fats, image, onButtonC
       whileHover={{ y: -5, transition: { duration: 0.2 } }}
       className="group relative overflow-hidden rounded-lg border border-green-500/20 bg-green-950/10"
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-60"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-80 "></div>
       <img
         src={image || "/placeholder.svg"}
         alt={title}

@@ -23,7 +23,7 @@ export function AnimeWorkoutQuotes({ onButtonClick }: AnimeWorkoutQuotesProps) {
       anime: "My Hero Academia",
       quote: "Plus Ultra! Go beyond your limits!",
       powerLevel: "100%",
-      image: "/a.png", // Replace with actual path
+      image: "/anime5.png", // Replace with actual path
       bg: "bg-gradient-to-br from-green-500 to-blue-600",
       icon: <Zap className="h-5 w-5" />
     },
@@ -32,34 +32,34 @@ export function AnimeWorkoutQuotes({ onButtonClick }: AnimeWorkoutQuotesProps) {
       anime: "Dragon Ball Z",
       quote: "Push through the pain! Train until you collapse!",
       powerLevel: "Over 9000!",
-      image: "/goku.png", // Replace with actual path
+      image: "/anime4.png", // Replace with actual path
       bg: "bg-gradient-to-br from-orange-500 to-red-600",
       icon: <Flame className="h-5 w-5" />
     },
     {
-      character: "Baki",
-      anime: "Attack on Titan",
+      character: "Toriko",
+      anime: "Toriko",
       quote: "Dedicate your heart. No pain, no gain.",
       powerLevel: "∞ Precision",
-      image: "/baki.png", // Replace with actual path
+      image: "/anime3.png", // Replace with actual path
       bg: "bg-gradient-to-br from-gray-700 to-blue-900",
       icon: <Sword className="h-5 w-5" />
     },
     {
-      character: "Saitama",
-      anime: "One Punch Man",
+      character: "Gojo",
+      anime: "Jujutsu Kaisen",
       quote: "100 push-ups, 100 sit-ups, 100 squats, 10km running. EVERY. SINGLE. DAY.",
       powerLevel: "One Punch Power",
-      image: "/d.png", 
+      image: "/anime2.png", 
       bg: "bg-gradient-to-br from-yellow-400 to-red-500",
       icon: <Shield className="h-5 w-5" />
     },
     {
-      character: "Rock Lee",
-      anime: "Naruto",
+      character: "Zoro",
+      anime: "One Piece",
       quote: "A dropout will beat a genius through hard work!",
       powerLevel: "8 Gates Unleashed",
-      image: "/c.png",
+      image: "/anime1.png",
       bg: "bg-gradient-to-br from-green-600 to-yellow-500",
       icon: <Dumbbell className="h-5 w-5" />
     }

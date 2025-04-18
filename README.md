@@ -16,9 +16,13 @@ CyberFit is a modern fitness tracking application built with Next.js, React, and
 
 - 📊 **Dashboard**: A central hub for tracking fitness metrics, challenges, and achievements.
 - 🤖 **AI Assistant**: Get personalized fitness advice and guidance.
-- 🏆 **Challenges**: Participate in fitness challenges to stay motivated.
-- 🎯 **Achievements**: Track and celebrate your milestones.
+- 🏆 **Challenges**: Participate in daily, weekly or mothly fitness challenges to stay motivated.
+- 🎯 **Achievements**: Track and celebrate your milestones, unlocking exclusive features and rewards as you progress.
+- � **Legends Hall**: Learn from fitness icons like Arnold Schwarzenegger.
+- ✨ **Anime Motivation**: Get inspired by quotes from anime heroes.
+- 📈 **Progress Tracking**: Visualize your fitness journey with detailed analytics (daily, weekly, monthly).
 - 🎨 **Custom Themes**: Choose from themes like "Neon City," "Digital Dojo," and "Cyber Gym."
+- 🍽️ **Power Up Zone**: Optimize performance with high-protein meals, curated workout playlists, and expert nutrition guides—all in one place.
 <br>
 
 
@@ -93,20 +97,19 @@ CyberFit is a modern fitness tracking application built with Next.js, React, and
 
 
 
-Theme1: Neon City 
+**Theme1: Neon City**
 ![image](https://github.com/user-attachments/assets/3dcf94fd-f38c-4e13-820e-8c55665587dd)
 
-Theme2: Digital Dojo
+**Theme2: Digital Dojo**
 ![image](https://github.com/user-attachments/assets/e6b7de06-ea03-4a12-a232-e482a4abaf8a)
 
-Theme3: Cyber Gym
+**Theme3: Cyber Gym**
 ![image](https://github.com/user-attachments/assets/13d8671c-d428-4f7b-a275-354824c27106)
 
-
-Challenges Zone:
+**Challenges Zone:**
 ![image](https://github.com/user-attachments/assets/7d79f287-cb37-42c4-aec6-f980064fcc3b)
 
-Achievement Hall: 
+**Achievement Hall:**
 ![image](https://github.com/user-attachments/assets/ff5a316d-2e0e-40e4-8f7c-9d070019e8df)
 
 ![image](https://github.com/user-attachments/assets/28fe9985-8322-433e-901e-a1f3e4b2068e)

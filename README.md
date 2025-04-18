@@ -20,9 +20,9 @@ CyberFit is a modern fitness tracking application built with Next.js, React, and
 - 🍽️ **Power Up Zone**: Optimize performance with high-protein meals, curated workout playlists, and expert nutrition guides.
 - 🎯 **Challenges**: Participate in daily, weekly or mothly fitness challenges to stay motivated.
 - 🏆 **Achievements**: Earn XP, unlock tiers, and claim legendary rewards by crushing milestones.
+- 🤖 **AI Assistant**: Get personalized fitness advice and guidance.
 - 🏛️ **Legends Hall**: Learn from fitness icons like Arnold Schwarzenegger.
 - ✨ **Anime Motivation**: Get inspired by quotes from anime heroes.
-- 🤖 **AI Assistant**: Get personalized fitness advice and guidance.
 - ⏰ **Training Schedule**: Optimize your workout routine with structured sessions and personalized timing.
 
 <br>

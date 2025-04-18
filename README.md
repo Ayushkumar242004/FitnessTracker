@@ -9,20 +9,21 @@ Your cyberpunk ally for AI-driven fitness.
 
 # 🏋️ About CyberFit
 
-CyberFit is a modern fitness tracking application built with Next.js, React, and Tailwind CSS. It provides users with a futuristic interface to track their fitness goals, monitor progress, and stay motivated with features like AI assistance, challenges, and more.
+CyberFit is a modern fitness tracking application built with Next.js, React, and Tailwind CSS. It provides users with a futuristic interface with customizable themes to track their fitness goals, monitor progress, and stay motivated with features like AI assistance, challenges, and more.
 <br>
 
 ## 🌟 Features
 
 - 📊 **Dashboard**: A central hub for tracking fitness metrics, challenges, and achievements.
 - 🤖 **AI Assistant**: Get personalized fitness advice and guidance.
-- 🏆 **Challenges**: Participate in daily, weekly or mothly fitness challenges to stay motivated.
-- 🎯 **Achievements**: Track and celebrate your milestones, unlocking exclusive features and rewards as you progress.
+- 🎯 **Challenges**: Participate in daily, weekly or mothly fitness challenges to stay motivated.
+- 🏆 **Achievements**: Earn XP, unlock tiers, and claim legendary rewards by crushing milestones.
 - � **Legends Hall**: Learn from fitness icons like Arnold Schwarzenegger.
 - ✨ **Anime Motivation**: Get inspired by quotes from anime heroes.
 - 📈 **Progress Tracking**: Visualize your fitness journey with detailed analytics (daily, weekly, monthly).
 - 🎨 **Custom Themes**: Choose from themes like "Neon City," "Digital Dojo," and "Cyber Gym."
 - 🍽️ **Power Up Zone**: Optimize performance with high-protein meals, curated workout playlists, and expert nutrition guides—all in one place.
+- ⏰ **Training Schedule**: Optimize your workout routine with structured sessions and personalized timing
 <br>
 
 

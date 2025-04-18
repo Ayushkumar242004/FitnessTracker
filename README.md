@@ -3,7 +3,7 @@
 <img src="https://github.com/user-attachments/assets/ad76c464-4cda-4f54-911f-333f3645a109" width="120" alt="Image">
 
 # **CyberFit**
-Your cyberpunk ally for AI-driven fitness.
+✨ Your cyberpunk ally for AI-driven fitness ✨
 
 </div>
 

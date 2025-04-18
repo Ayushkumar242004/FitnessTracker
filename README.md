@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="/public/logo.png" alt="CyberFit Logo" width="120"/>
+<img src="https://github.com/user-attachments/assets/ad76c464-4cda-4f54-911f-333f3645a109" width="120" alt="Image">
 
 # **CyberFit**
 Your cyberpunk ally for AI-driven fitness.

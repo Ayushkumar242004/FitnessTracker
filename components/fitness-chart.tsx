@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import {
   Chart,
   ChartContainer,
@@ -10,17 +10,17 @@ import {
   LineChart,
   XAxis,
   YAxis,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
 
 interface FitnessChartProps {
-  period: string
+  period: string;
 }
 
 export function FitnessChart({ period }: FitnessChartProps) {
-  const [data, setData] = useState<any[]>([])
+  const [data, setData] = useState<any[]>([]);
 
+  // Update chart data based on the selected period
   useEffect(() => {
-    // Generate different data based on the period
     if (period === "daily") {
       setData([
         { time: "6AM", steps: 500, calories: 100, heartRate: 65 },
@@ -29,7 +29,7 @@ export function FitnessChart({ period }: FitnessChartProps) {
         { time: "3PM", steps: 5500, calories: 1200, heartRate: 90 },
         { time: "6PM", steps: 7000, calories: 1500, heartRate: 110 },
         { time: "9PM", steps: 8742, calories: 1842, heartRate: 75 },
-      ])
+      ]);
     } else if (period === "weekly") {
       setData([
         { time: "Mon", steps: 9200, calories: 1950, heartRate: 88 },
@@ -39,23 +39,26 @@ export function FitnessChart({ period }: FitnessChartProps) {
         { time: "Fri", steps: 8742, calories: 1842, heartRate: 72 },
         { time: "Sat", steps: 6500, calories: 1400, heartRate: 75 },
         { time: "Sun", steps: 5000, calories: 1100, heartRate: 70 },
-      ])
+      ]);
     } else {
       setData([
         { time: "Week 1", steps: 45000, calories: 9500, heartRate: 82 },
         { time: "Week 2", steps: 52000, calories: 11000, heartRate: 85 },
         { time: "Week 3", steps: 48000, calories: 10200, heartRate: 80 },
         { time: "Week 4", steps: 61000, calories: 12800, heartRate: 88 },
-      ])
+      ]);
     }
-  }, [period])
+  }, [period]);
 
   return (
     <ChartContainer className="h-full">
       <Chart>
         <LineChart data={data}>
+          {/* X-Axis and Y-Axis */}
           <XAxis dataKey="time" />
           <YAxis />
+
+          {/* Steps Line */}
           <Line
             type="monotone"
             dataKey="steps"
@@ -73,6 +76,8 @@ export function FitnessChart({ period }: FitnessChartProps) {
               strokeWidth: 2,
             }}
           />
+
+          {/* Calories Line */}
           <Line
             type="monotone"
             dataKey="calories"
@@ -90,6 +95,8 @@ export function FitnessChart({ period }: FitnessChartProps) {
               strokeWidth: 2,
             }}
           />
+
+          {/* Heart Rate Line */}
           <Line
             type="monotone"
             dataKey="heartRate"
@@ -107,11 +114,15 @@ export function FitnessChart({ period }: FitnessChartProps) {
               strokeWidth: 2,
             }}
           />
+
+          {/* Tooltip */}
           <ChartTooltip
-            content={<ChartTooltipContent className="border-purple-500/20 bg-black/80 backdrop-blur-md" />}
+            content={
+              <ChartTooltipContent className="border-purple-500/20 bg-black/80 backdrop-blur-md" />
+            }
           />
         </LineChart>
       </Chart>
     </ChartContainer>
-  )
+  );
 }

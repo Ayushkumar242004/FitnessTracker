@@ -1,19 +1,20 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, Trophy } from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, Trophy } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface LegendsHallProps {
-  onButtonClick: () => void
+  onButtonClickAction: () => void;
 }
 
-export function LegendsHall({ onButtonClick }: LegendsHallProps) {
-  const [currentLegend, setCurrentLegend] = useState(0)
+export function LegendsHall({ onButtonClickAction }: LegendsHallProps) {
+  const [currentLegend, setCurrentLegend] = useState(0);
 
+  // List of legends with their details
   const legends = [
     {
       name: "Arnold Schwarzenegger",
@@ -27,7 +28,8 @@ export function LegendsHall({ onButtonClick }: LegendsHallProps) {
       name: "Ronnie Coleman",
       title: "8x Mr. Olympia",
       years: "1998-2005",
-      quote: "Everybody wants to be a bodybuilder, but don't nobody want to lift no heavy weight.",
+      quote:
+        "Everybody wants to be a bodybuilder, but don't nobody want to lift no heavy weight.",
       image: "/ronnie.png?height=400&width=300",
     },
     {
@@ -46,21 +48,24 @@ export function LegendsHall({ onButtonClick }: LegendsHallProps) {
         "Exercise to stimulate, not to annihilate. The world wasn't formed in a day, and neither were we. Set small goals and build upon them.",
       image: "/lee.png?height=400&width=300",
     },
-  ]
+  ];
 
+  // Navigate to the next legend
   const nextLegend = () => {
-    onButtonClick()
-    setCurrentLegend((prev) => (prev + 1) % legends.length)
-  }
+    onButtonClickAction();
+    setCurrentLegend((prev) => (prev + 1) % legends.length);
+  };
 
+  // Navigate to the previous legend
   const prevLegend = () => {
-    onButtonClick()
-    setCurrentLegend((prev) => (prev - 1 + legends.length) % legends.length)
-  }
+    onButtonClickAction();
+    setCurrentLegend((prev) => (prev - 1 + legends.length) % legends.length);
+  };
 
   return (
     <Card className="overflow-hidden border border-purple-500/20 bg-black/40 backdrop-blur-md">
       <div className="p-6">
+        {/* Header Section */}
         <div className="mb-4 flex items-center justify-between">
           <h3 className="flex items-center text-lg font-bold text-white">
             <Trophy className="mr-2 h-5 w-5 text-yellow-400" />
@@ -86,9 +91,12 @@ export function LegendsHall({ onButtonClick }: LegendsHallProps) {
           </div>
         </div>
 
+        {/* Legend Display Section */}
         <div className="relative h-[400px] overflow-hidden rounded-lg border border-purple-500/20 bg-purple-950/20">
+          {/* Background Gradient */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
 
+          {/* Legend Details */}
           <AnimatePresence mode="wait">
             <motion.div
               key={currentLegend}
@@ -98,17 +106,20 @@ export function LegendsHall({ onButtonClick }: LegendsHallProps) {
               transition={{ duration: 0.5 }}
               className="relative h-full w-full"
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+              {/* Legend Image */}
               <img
-    src={legends[currentLegend].image || "/placeholder.svg"}
-    alt={legends[currentLegend].name}
-    className="h-[300px] w-[300px]  mx-auto"
-  />
+                src={legends[currentLegend].image || "/placeholder.svg"}
+                alt={legends[currentLegend].name}
+                className="h-[300px] w-[300px] mx-auto"
+              />
 
+              {/* Legend Information */}
               <div className="absolute bottom-0 left-0 right-0 p-4">
                 <div className="mb-2 flex items-center">
                   <div className="mr-2 h-6 w-1 bg-yellow-400"></div>
-                  <h4 className="text-xl font-bold text-white">{legends[currentLegend].name}</h4>
+                  <h4 className="text-xl font-bold text-white">
+                    {legends[currentLegend].name}
+                  </h4>
                 </div>
                 <div className="mb-2 flex items-center space-x-2">
                   <span className="rounded-full bg-yellow-500/20 px-2 py-0.5 text-xs font-medium text-yellow-300">
@@ -118,9 +129,12 @@ export function LegendsHall({ onButtonClick }: LegendsHallProps) {
                     {legends[currentLegend].years}
                   </span>
                 </div>
-                <p className="text-sm italic text-gray-300">"{legends[currentLegend].quote}"</p>
+                <p className="text-sm italic text-gray-300">
+                  "{legends[currentLegend].quote}"
+                </p>
               </div>
 
+              {/* Background Glow Effects */}
               <div className="absolute left-0 top-0 h-full w-full">
                 <div className="absolute -left-20 -top-20 h-40 w-40 animate-pulse rounded-full bg-yellow-500 opacity-10 blur-3xl"></div>
                 <div className="absolute -right-20 -bottom-20 h-40 w-40 animate-pulse rounded-full bg-purple-500 opacity-10 blur-3xl"></div>
@@ -128,6 +142,7 @@ export function LegendsHall({ onButtonClick }: LegendsHallProps) {
             </motion.div>
           </AnimatePresence>
 
+          {/* Pagination Dots */}
           <div className="absolute bottom-0 left-0 right-0 flex justify-center p-2">
             <div className="flex space-x-1">
               {legends.map((_, index) => (
@@ -135,11 +150,13 @@ export function LegendsHall({ onButtonClick }: LegendsHallProps) {
                   key={index}
                   className={cn(
                     "h-1.5 w-6 rounded-full transition-all duration-300",
-                    index === currentLegend ? "bg-gradient-to-r from-yellow-400 to-purple-500" : "bg-white/30",
+                    index === currentLegend
+                      ? "bg-gradient-to-r from-yellow-400 to-purple-500"
+                      : "bg-white/30"
                   )}
                   onClick={() => {
-                    setCurrentLegend(index)
-                    onButtonClick()
+                    setCurrentLegend(index);
+                    onButtonClickAction();
                   }}
                 />
               ))}
@@ -148,5 +165,5 @@ export function LegendsHall({ onButtonClick }: LegendsHallProps) {
         </div>
       </div>
     </Card>
-  )
+  );
 }

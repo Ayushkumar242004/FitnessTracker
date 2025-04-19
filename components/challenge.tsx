@@ -1,39 +1,55 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import {
-  Flame, Zap, Sword, Shield, Dumbbell, Trophy, Clock, CheckCircle
-} from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
+  Flame,
+  Zap,
+  Sword,
+  Shield,
+  Dumbbell,
+  Trophy,
+  Clock,
+  CheckCircle,
+} from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
-const difficultyColors: Record<"Beginner" | "Intermediate" | "Advanced" | "Elite", string> = {
+// Difficulty color mapping
+const difficultyColors: Record<
+  "Beginner" | "Intermediate" | "Advanced" | "Elite",
+  string
+> = {
   Beginner: "bg-green-500/20 text-green-400",
   Intermediate: "bg-blue-500/20 text-blue-400",
   Advanced: "bg-purple-500/20 text-purple-400",
-  Elite: "bg-red-500/20 text-red-400"
-}
+  Elite: "bg-red-500/20 text-red-400",
+};
 
-type Difficulty = keyof typeof difficultyColors
-type TabType = "daily" | "weekly" | "monthly"
+type Difficulty = keyof typeof difficultyColors;
+type TabType = "daily" | "weekly" | "monthly";
 
 interface Challenge {
-  id: string
-  title: string
-  description: string
-  difficulty: Difficulty
-  xpReward: number
-  duration: string
-  completed: boolean
-  icon: JSX.Element
-  color: string
+  id: string;
+  title: string;
+  description: string;
+  difficulty: Difficulty;
+  xpReward: number;
+  duration: string;
+  completed: boolean;
+  icon: JSX.Element;
+  color: string;
 }
 
-export function CyberChallenges({ onButtonClick }: { onButtonClick: () => void }) {
-  const [activeTab, setActiveTab] = useState<TabType>("daily")
-  const [progress, setProgress] = useState(0)
+export function CyberChallenges({
+  onButtonClickAction,
+}: {
+  onButtonClickAction: () => void;
+}) {
+  const [activeTab, setActiveTab] = useState<TabType>("daily");
+  const [progress, setProgress] = useState(0);
 
+  // Challenges data categorized by tabs
   const challenges: Record<TabType, Challenge[]> = {
     daily: [
       {
@@ -45,7 +61,7 @@ export function CyberChallenges({ onButtonClick }: { onButtonClick: () => void }
         duration: "24h",
         completed: false,
         icon: <Zap className="h-5 w-5" />,
-        color: "bg-gradient-to-br from-yellow-400 to-purple-600"
+        color: "bg-gradient-to-br from-yellow-400 to-purple-600",
       },
       {
         id: "d2",
@@ -56,7 +72,7 @@ export function CyberChallenges({ onButtonClick }: { onButtonClick: () => void }
         duration: "24h",
         completed: true,
         icon: <Shield className="h-5 w-5" />,
-        color: "bg-gradient-to-br from-cyan-400 to-blue-600"
+        color: "bg-gradient-to-br from-cyan-400 to-blue-600",
       },
       {
         id: "d3",
@@ -67,8 +83,8 @@ export function CyberChallenges({ onButtonClick }: { onButtonClick: () => void }
         duration: "24h",
         completed: false,
         icon: <Dumbbell className="h-5 w-5" />,
-        color: "bg-gradient-to-br from-pink-500 to-red-600"
-      }
+        color: "bg-gradient-to-br from-pink-500 to-red-600",
+      },
     ],
     weekly: [
       {
@@ -80,7 +96,7 @@ export function CyberChallenges({ onButtonClick }: { onButtonClick: () => void }
         duration: "7d",
         completed: false,
         icon: <Flame className="h-5 w-5" />,
-        color: "bg-gradient-to-br from-orange-500 to-yellow-400"
+        color: "bg-gradient-to-br from-orange-500 to-yellow-400",
       },
       {
         id: "w2",
@@ -91,8 +107,8 @@ export function CyberChallenges({ onButtonClick }: { onButtonClick: () => void }
         duration: "7d",
         completed: false,
         icon: <Sword className="h-5 w-5" />,
-        color: "bg-gradient-to-br from-green-500 to-teal-600"
-      }
+        color: "bg-gradient-to-br from-green-500 to-teal-600",
+      },
     ],
     monthly: [
       {
@@ -104,22 +120,24 @@ export function CyberChallenges({ onButtonClick }: { onButtonClick: () => void }
         duration: "30d",
         completed: false,
         icon: <Trophy className="h-5 w-5" />,
-        color: "bg-gradient-to-br from-purple-600 to-pink-600"
-      }
-    ]
-  }
+        color: "bg-gradient-to-br from-purple-600 to-pink-600",
+      },
+    ],
+  };
 
+  // Calculate progress based on completed challenges
   useEffect(() => {
-    const completed = challenges[activeTab].filter(c => c.completed).length
-    const total = challenges[activeTab].length
-    setProgress((completed / total) * 100)
-  }, [activeTab])
+    const completed = challenges[activeTab].filter((c) => c.completed).length;
+    const total = challenges[activeTab].length;
+    setProgress((completed / total) * 100);
+  }, [activeTab]);
 
+  // Tab index mapping for animated indicator
   const tabIndexMap: Record<TabType, number> = {
     daily: 0,
     weekly: 1,
-    monthly: 2
-  }
+    monthly: 2,
+  };
 
   return (
     <Card className="overflow-hidden border border-purple-500/20 bg-black/40 backdrop-blur-md">
@@ -134,7 +152,7 @@ export function CyberChallenges({ onButtonClick }: { onButtonClick: () => void }
           <motion.span
             animate={{
               rotate: [0, 10, -10, 0],
-              transition: { duration: 0.5, repeat: Infinity, repeatDelay: 3 }
+              transition: { duration: 0.5, repeat: Infinity, repeatDelay: 3 },
             }}
           >
             <Flame className="mr-2 h-5 w-5 text-yellow-400" />
@@ -151,12 +169,14 @@ export function CyberChallenges({ onButtonClick }: { onButtonClick: () => void }
               <button
                 key={tab}
                 onClick={() => {
-                  setActiveTab(tab)
-                  onButtonClick()
+                  setActiveTab(tab);
+                  onButtonClickAction();
                 }}
                 className={cn(
                   "relative z-20 flex-1 py-2 px-4 text-sm font-medium rounded-md transition-colors",
-                  activeTab === tab ? "text-white" : "text-purple-300 hover:text-white"
+                  activeTab === tab
+                    ? "text-white"
+                    : "text-purple-300 hover:text-white"
                 )}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -175,8 +195,12 @@ export function CyberChallenges({ onButtonClick }: { onButtonClick: () => void }
         {/* Progress Bar */}
         <div className="mb-6">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-xs font-medium text-purple-300">CHALLENGE PROGRESS</span>
-            <span className="text-xs font-bold text-white">{Math.round(progress)}%</span>
+            <span className="text-xs font-medium text-purple-300">
+              CHALLENGE PROGRESS
+            </span>
+            <span className="text-xs font-bold text-white">
+              {Math.round(progress)}%
+            </span>
           </div>
           <div className="h-2 w-full rounded-full bg-purple-900/50 overflow-hidden">
             <motion.div
@@ -195,38 +219,51 @@ export function CyberChallenges({ onButtonClick }: { onButtonClick: () => void }
               key={challenge.id}
               className={cn(
                 "relative overflow-hidden rounded-lg border border-purple-500/20 p-4 cursor-pointer transition-all",
-                challenge.completed ? "bg-green-900/20" : "bg-purple-900/10 hover:bg-purple-900/30"
+                challenge.completed
+                  ? "bg-green-900/20"
+                  : "bg-purple-900/10 hover:bg-purple-900/30"
               )}
             >
               <div className="relative z-10 flex items-start">
-                <div className={cn(
-                  "flex items-center justify-center h-10 w-10 rounded-full mr-3",
-                  challenge.color
-                )}>
-                  {challenge.completed
-                    ? <CheckCircle className="h-5 w-5 text-green-400" />
-                    : challenge.icon
-                  }
+                <div
+                  className={cn(
+                    "flex items-center justify-center h-10 w-10 rounded-full mr-3",
+                    challenge.color
+                  )}
+                >
+                  {challenge.completed ? (
+                    <CheckCircle className="h-5 w-5 text-green-400" />
+                  ) : (
+                    challenge.icon
+                  )}
                 </div>
 
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <h4 className={cn(
-                      "font-bold",
-                      challenge.completed ? "text-green-400 line-through" : "text-white"
-                    )}>
+                    <h4
+                      className={cn(
+                        "font-bold",
+                        challenge.completed
+                          ? "text-green-400 line-through"
+                          : "text-white"
+                      )}
+                    >
                       {challenge.title}
                     </h4>
                     <span className="text-xs font-bold text-yellow-400">
                       {challenge.xpReward} XP
                     </span>
                   </div>
-                  <p className="text-sm text-purple-200 mt-1">{challenge.description}</p>
+                  <p className="text-sm text-purple-200 mt-1">
+                    {challenge.description}
+                  </p>
                   <div className="flex items-center mt-2 space-x-2">
-                    <span className={cn(
-                      "text-xs px-2 py-0.5 rounded-full",
-                      difficultyColors[challenge.difficulty]
-                    )}>
+                    <span
+                      className={cn(
+                        "text-xs px-2 py-0.5 rounded-full",
+                        difficultyColors[challenge.difficulty]
+                      )}
+                    >
                       {challenge.difficulty}
                     </span>
                     <span className="flex items-center text-xs text-purple-300">
@@ -241,5 +278,5 @@ export function CyberChallenges({ onButtonClick }: { onButtonClick: () => void }
         </div>
       </div>
     </Card>
-  )
+  );
 }

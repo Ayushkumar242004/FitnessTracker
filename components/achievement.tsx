@@ -1,51 +1,70 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence, useTransform, useMotionValue, useSpring } from "framer-motion"
-import { Trophy, Award, Star, Zap, Flame, Shield, Sword, Medal, CheckCircle,ChevronLeft,ChevronRight } from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { useState, useEffect } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useTransform,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
+import {
+  Trophy,
+  Award,
+  Star,
+  Zap,
+  Flame,
+  Shield,
+  Sword,
+  Medal,
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface Achievement {
-  id: string
-  title: string
-  description: string
-  unlocked: boolean
-  xp: number
-  rarity: "common" | "rare" | "epic" | "legendary"
-  icon: JSX.Element
-  animation?: string
+  id: string;
+  title: string;
+  description: string;
+  unlocked: boolean;
+  xp: number;
+  rarity: "common" | "rare" | "epic" | "legendary";
+  icon: JSX.Element;
+  animation?: string;
 }
 
 export function AchievementHall() {
-  const [activeCategory, setActiveCategory] = useState<"all" | "unlocked" | "locked">("all")
-  const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null)
-  const [viewMode, setViewMode] = useState<"grid" | "carousel">("grid")
-
+  const [activeCategory, setActiveCategory] = useState<
+    "all" | "unlocked" | "locked"
+  >("all");
+  const [selectedAchievement, setSelectedAchievement] =
+    useState<Achievement | null>(null);
+  const [viewMode, setViewMode] = useState<"grid" | "carousel">("grid");
 
   // 3D tilt effect
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-  const springX = useSpring(x, { stiffness: 10, damping: 30 })
-  const springY = useSpring(y, { stiffness: 50, damping: 30 })
-  
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 10, damping: 30 });
+  const springY = useSpring(y, { stiffness: 50, damping: 30 });
+
   // Reduced rotation from ±10° to ±6°
-  const rotateX = useTransform(springY, [-100, 100], [6, -6])
-  const rotateY = useTransform(springX, [-100, 100], [-6, 6])
-  
+  const rotateX = useTransform(springY, [-100, 100], [6, -6]);
+  const rotateY = useTransform(springX, [-100, 100], [-6, 6]);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    x.set(e.clientX - rect.left - rect.width / 2)
-    y.set(e.clientY - rect.top - rect.height / 2)
-  }
+    const rect = e.currentTarget.getBoundingClientRect();
+    x.set(e.clientX - rect.left - rect.width / 2);
+    y.set(e.clientY - rect.top - rect.height / 2);
+  };
 
   const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-  }
+    x.set(0);
+    y.set(0);
+  };
 
-  
   // Achievement data
   const achievements: Achievement[] = [
     {
@@ -56,7 +75,7 @@ export function AchievementHall() {
       xp: 100,
       rarity: "common",
       icon: <CheckCircle className="h-6 w-6" />,
-      animation: "trophy-spin"
+      animation: "trophy-spin",
     },
     {
       id: "a2",
@@ -66,7 +85,7 @@ export function AchievementHall() {
       xp: 250,
       rarity: "rare",
       icon: <Flame className="h-6 w-6" />,
-      animation: "fire-pulse"
+      animation: "fire-pulse",
     },
     {
       id: "a3",
@@ -76,7 +95,7 @@ export function AchievementHall() {
       xp: 500,
       rarity: "epic",
       icon: <Zap className="h-6 w-6" />,
-      animation: "lightning-strike"
+      animation: "lightning-strike",
     },
     {
       id: "a4",
@@ -86,7 +105,7 @@ export function AchievementHall() {
       xp: 750,
       rarity: "epic",
       icon: <Sword className="h-6 w-6" />,
-      animation: "sword-slash"
+      animation: "sword-slash",
     },
     {
       id: "a5",
@@ -96,7 +115,7 @@ export function AchievementHall() {
       xp: 1000,
       rarity: "rare",
       icon: <Shield className="h-6 w-6" />,
-      animation: "shield-glow"
+      animation: "shield-glow",
     },
     {
       id: "a6",
@@ -106,7 +125,7 @@ export function AchievementHall() {
       xp: 5000,
       rarity: "legendary",
       icon: <Trophy className="h-6 w-6" />,
-      animation: "golden-glow"
+      animation: "golden-glow",
     },
     {
       id: "a7",
@@ -116,7 +135,7 @@ export function AchievementHall() {
       xp: 300,
       rarity: "rare",
       icon: <Zap className="h-6 w-6" />,
-      animation: "speed-lines"
+      animation: "speed-lines",
     },
     {
       id: "a8",
@@ -126,45 +145,47 @@ export function AchievementHall() {
       xp: 2000,
       rarity: "legendary",
       icon: <Medal className="h-6 w-6" />,
-      animation: "medal-spin"
-    }
-  ]
+      animation: "medal-spin",
+    },
+  ];
 
   // Filter achievements based on active category
-  const filteredAchievements = achievements.filter(achievement => {
-    if (activeCategory === "all") return true
-    if (activeCategory === "unlocked") return achievement.unlocked
-    return !achievement.unlocked
-  })
+  const filteredAchievements = achievements.filter((achievement) => {
+    if (activeCategory === "all") return true;
+    if (activeCategory === "unlocked") return achievement.unlocked;
+    return !achievement.unlocked;
+  });
 
   // Rarity colors
   const rarityColors = {
     common: "bg-gray-500/20 text-gray-300",
     rare: "bg-blue-500/20 text-blue-400",
     epic: "bg-purple-500/20 text-purple-400",
-    legendary: "bg-yellow-500/20 text-yellow-400"
-  }
+    legendary: "bg-yellow-500/20 text-yellow-400",
+  };
 
   // Rarity border colors
   const rarityBorderColors = {
     common: "border-gray-500",
     rare: "border-blue-500",
     epic: "border-purple-500",
-    legendary: "border-yellow-500"
-  }
+    legendary: "border-yellow-500",
+  };
 
   // Auto-rotate carousel
   useEffect(() => {
-    if (viewMode !== "carousel") return
-    
+    if (viewMode !== "carousel") return;
+
     const interval = setInterval(() => {
-      const currentIndex = filteredAchievements.findIndex(a => a.id === selectedAchievement?.id)
-      const nextIndex = (currentIndex + 1) % filteredAchievements.length
-      setSelectedAchievement(filteredAchievements[nextIndex])
-    }, 5000)
-    
-    return () => clearInterval(interval)
-  }, [viewMode, selectedAchievement, filteredAchievements])
+      const currentIndex = filteredAchievements.findIndex(
+        (a) => a.id === selectedAchievement?.id
+      );
+      const nextIndex = (currentIndex + 1) % filteredAchievements.length;
+      setSelectedAchievement(filteredAchievements[nextIndex]);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [viewMode, selectedAchievement, filteredAchievements]);
 
   return (
     <motion.div
@@ -178,7 +199,7 @@ export function AchievementHall() {
         style={{
           rotateX,
           rotateY,
-          transformPerspective: 1000
+          transformPerspective: 1000,
         }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -196,7 +217,7 @@ export function AchievementHall() {
                     x: Math.random() * 1200,
                     y: Math.random() * 400,
                     rotate: Math.random() * 360,
-                    scale: Math.random() * 0.5 + 0.5
+                    scale: Math.random() * 0.5 + 0.5,
                   }}
                   animate={{
                     y: [0, -100, -200, -300, 0],
@@ -204,8 +225,8 @@ export function AchievementHall() {
                     transition: {
                       duration: Math.random() * 10 + 10,
                       repeat: Infinity,
-                      ease: "linear"
-                    }
+                      ease: "linear",
+                    },
                   }}
                 >
                   <Trophy className="h-12 w-12" />
@@ -215,7 +236,7 @@ export function AchievementHall() {
 
             <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
-                <motion.h2 
+                <motion.h2
                   className="text-2xl font-bold text-white mb-1"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -225,7 +246,7 @@ export function AchievementHall() {
                     ACHIEVEMENT HALL
                   </span>
                 </motion.h2>
-                <motion.p 
+                <motion.p
                   className="text-purple-300"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -253,8 +274,8 @@ export function AchievementHall() {
                     viewMode !== "carousel" && "bg-transparent"
                   )}
                   onClick={() => {
-                    setViewMode("carousel")
-                    setSelectedAchievement(filteredAchievements[0])
+                    setViewMode("carousel");
+                    setSelectedAchievement(filteredAchievements[0]);
                   }}
                 >
                   Showcase View
@@ -271,7 +292,7 @@ export function AchievementHall() {
                   key={category}
                   className={cn(
                     "px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap",
-                    activeCategory === category 
+                    activeCategory === category
                       ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
                       : "bg-purple-900/30 text-purple-300 hover:bg-purple-900/50"
                   )}
@@ -282,7 +303,7 @@ export function AchievementHall() {
                   {category.charAt(0).toUpperCase() + category.slice(1)}
                   {category === "unlocked" && (
                     <span className="ml-1 bg-yellow-500 text-yellow-900 text-xs px-1.5 py-0.5 rounded-full">
-                      {achievements.filter(a => a.unlocked).length}
+                      {achievements.filter((a) => a.unlocked).length}
                     </span>
                   )}
                 </motion.button>
@@ -304,16 +325,22 @@ export function AchievementHall() {
                     className={cn(
                       "relative overflow-hidden rounded-lg border p-4 transition-all",
                       rarityBorderColors[achievement.rarity],
-                      achievement.unlocked ? "bg-gradient-to-br from-black/50 to-purple-900/20" : "bg-black/30"
+                      achievement.unlocked
+                        ? "bg-gradient-to-br from-black/50 to-purple-900/20"
+                        : "bg-black/30"
                     )}
                     onClick={() => setSelectedAchievement(achievement)}
                   >
                     {/* Rarity glow */}
-                    <div className={cn(
-                      "absolute -inset-1 opacity-20 blur-md transition-opacity",
-                      achievement.unlocked ? rarityColors[achievement.rarity] : "bg-gray-900",
-                      "hover:opacity-40"
-                    )} />
+                    <div
+                      className={cn(
+                        "absolute -inset-1 opacity-20 blur-md transition-opacity",
+                        achievement.unlocked
+                          ? rarityColors[achievement.rarity]
+                          : "bg-gray-900",
+                        "hover:opacity-40"
+                      )}
+                    />
 
                     {/* Achievement content */}
                     <div className="relative z-10">
@@ -329,17 +356,21 @@ export function AchievementHall() {
                             transition: {
                               duration: 2,
                               repeat: Infinity,
-                              repeatDelay: 3
-                            }
+                              repeatDelay: 3,
+                            },
                           }}
                         >
                           {achievement.icon}
                         </motion.div>
                         <div>
-                          <h3 className={cn(
-                            "font-bold",
-                            achievement.unlocked ? "text-white" : "text-gray-400"
-                          )}>
+                          <h3
+                            className={cn(
+                              "font-bold",
+                              achievement.unlocked
+                                ? "text-white"
+                                : "text-gray-400"
+                            )}
+                          >
                             {achievement.title}
                           </h3>
                           <p className="text-sm text-purple-300 mt-1">
@@ -349,11 +380,14 @@ export function AchievementHall() {
                       </div>
 
                       <div className="mt-3 flex items-center justify-between">
-                        <span className={cn(
-                          "text-xs px-2 py-0.5 rounded-full",
-                          rarityColors[achievement.rarity]
-                        )}>
-                          {achievement.rarity.charAt(0).toUpperCase() + achievement.rarity.slice(1)}
+                        <span
+                          className={cn(
+                            "text-xs px-2 py-0.5 rounded-full",
+                            rarityColors[achievement.rarity]
+                          )}
+                        >
+                          {achievement.rarity.charAt(0).toUpperCase() +
+                            achievement.rarity.slice(1)}
                         </span>
                         <div className="flex items-center gap-1">
                           <span className="text-xs font-bold text-yellow-400">
@@ -380,7 +414,14 @@ export function AchievementHall() {
                             strokeLinejoin="round"
                             className="h-8 w-8 mx-auto text-purple-400 mb-2"
                           >
-                            <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                            <rect
+                              width="18"
+                              height="11"
+                              x="3"
+                              y="11"
+                              rx="2"
+                              ry="2"
+                            />
                             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                           </svg>
                           <p className="text-sm text-purple-300">
@@ -414,7 +455,7 @@ export function AchievementHall() {
                         <motion.div
                           className={cn(
                             "mx-auto mb-6 flex items-center justify-center h-20 w-20 rounded-full",
-                            selectedAchievement.unlocked 
+                            selectedAchievement.unlocked
                               ? "bg-gradient-to-br from-yellow-400 to-orange-500 shadow-lg"
                               : "bg-gray-700/50"
                           )}
@@ -425,14 +466,14 @@ export function AchievementHall() {
                             transition: {
                               duration: selectedAchievement.unlocked ? 2 : 3,
                               repeat: Infinity,
-                              repeatType: "reverse"
-                            }
+                              repeatType: "reverse",
+                            },
                           }}
                         >
                           {selectedAchievement.icon}
                         </motion.div>
 
-                        <motion.h3 
+                        <motion.h3
                           className="text-3xl font-bold text-white mb-2"
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -460,7 +501,10 @@ export function AchievementHall() {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: 0.4 }}
                           >
-                            {selectedAchievement.rarity.charAt(0).toUpperCase() + selectedAchievement.rarity.slice(1)}
+                            {selectedAchievement.rarity
+                              .charAt(0)
+                              .toUpperCase() +
+                              selectedAchievement.rarity.slice(1)}
                           </motion.div>
                           <motion.div
                             className="flex items-center bg-yellow-500/20 text-yellow-400 px-4 py-1 rounded-full text-sm font-bold"
@@ -498,8 +542,8 @@ export function AchievementHall() {
                               opacity: [0.5, 1, 0.5],
                               transition: {
                                 duration: 3,
-                                repeat: Infinity
-                              }
+                                repeat: Infinity,
+                              },
                             }}
                           />
                           <motion.div
@@ -511,8 +555,8 @@ export function AchievementHall() {
                               transition: {
                                 duration: 4,
                                 repeat: Infinity,
-                                delay: 1
-                              }
+                                delay: 1,
+                              },
                             }}
                           />
                         </>
@@ -528,8 +572,8 @@ export function AchievementHall() {
                       key={achievement.id}
                       className={cn(
                         "h-2 w-2 rounded-full transition-all",
-                        selectedAchievement?.id === achievement.id 
-                          ? "bg-white w-6" 
+                        selectedAchievement?.id === achievement.id
+                          ? "bg-white w-6"
                           : "bg-white/30"
                       )}
                       onClick={() => setSelectedAchievement(achievement)}
@@ -541,9 +585,13 @@ export function AchievementHall() {
                 <button
                   className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-purple-600/50 transition-all"
                   onClick={() => {
-                    const currentIndex = filteredAchievements.findIndex(a => a.id === selectedAchievement?.id)
-                    const prevIndex = (currentIndex - 1 + filteredAchievements.length) % filteredAchievements.length
-                    setSelectedAchievement(filteredAchievements[prevIndex])
+                    const currentIndex = filteredAchievements.findIndex(
+                      (a) => a.id === selectedAchievement?.id
+                    );
+                    const prevIndex =
+                      (currentIndex - 1 + filteredAchievements.length) %
+                      filteredAchievements.length;
+                    setSelectedAchievement(filteredAchievements[prevIndex]);
                   }}
                 >
                   <ChevronLeft className="h-6 w-6" />
@@ -551,9 +599,12 @@ export function AchievementHall() {
                 <button
                   className="absolute right-4 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-purple-600/50 transition-all"
                   onClick={() => {
-                    const currentIndex = filteredAchievements.findIndex(a => a.id === selectedAchievement?.id)
-                    const nextIndex = (currentIndex + 1) % filteredAchievements.length
-                    setSelectedAchievement(filteredAchievements[nextIndex])
+                    const currentIndex = filteredAchievements.findIndex(
+                      (a) => a.id === selectedAchievement?.id
+                    );
+                    const nextIndex =
+                      (currentIndex + 1) % filteredAchievements.length;
+                    setSelectedAchievement(filteredAchievements[nextIndex]);
                   }}
                 >
                   <ChevronRight className="h-6 w-6" />
@@ -569,16 +620,20 @@ export function AchievementHall() {
                 <Trophy className="h-5 w-5 text-yellow-400" />
                 <span className="text-sm text-purple-300">
                   <span className="text-white font-bold">
-                    {achievements.filter(a => a.unlocked).length}
-                  </span> of {achievements.length} achievements unlocked
+                    {achievements.filter((a) => a.unlocked).length}
+                  </span>{" "}
+                  of {achievements.length} achievements unlocked
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
                 <span className="text-sm text-purple-300">
                   <span className="text-white font-bold">
-                    {achievements.filter(a => a.unlocked).reduce((sum, a) => sum + a.xp, 0)}
-                  </span> XP earned
+                    {achievements
+                      .filter((a) => a.unlocked)
+                      .reduce((sum, a) => sum + a.xp, 0)}
+                  </span>{" "}
+                  XP earned
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -601,8 +656,13 @@ export function AchievementHall() {
                 </svg>
                 <span className="text-sm text-purple-300">
                   <span className="text-white font-bold">
-                    {achievements.filter(a => a.rarity === "legendary" && a.unlocked).length}
-                  </span> legendary achievements
+                    {
+                      achievements.filter(
+                        (a) => a.rarity === "legendary" && a.unlocked
+                      ).length
+                    }
+                  </span>{" "}
+                  legendary achievements
                 </span>
               </div>
             </div>
@@ -610,5 +670,5 @@ export function AchievementHall() {
         </Card>
       </motion.div>
     </motion.div>
-  )
+  );
 }

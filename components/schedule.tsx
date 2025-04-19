@@ -1,29 +1,43 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence, useAnimation } from "framer-motion"
-import { ChevronLeft, ChevronRight, Flame, Zap, Sword, Shield, Dumbbell, Clock, Calendar } from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Flame,
+  Zap,
+  Sword,
+  Shield,
+  Dumbbell,
+  Clock,
+  Calendar,
+} from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface TrainingSession {
-  id: string
-  title: string
-  time: string
-  anime: string
-  quote: string
-  intensity: string
-  image: string
-  bg: string
-  icon: JSX.Element
+  id: string;
+  title: string;
+  time: string;
+  anime: string;
+  quote: string;
+  intensity: string;
+  image: string;
+  bg: string;
+  icon: JSX.Element;
 }
 
-export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => void }) {
-  const [currentSession, setCurrentSession] = useState(0)
-  const controls = useAnimation()
-  const [glowPosition, setGlowPosition] = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered] = useState(false)
+export function AnimeTrainingSchedule({
+  onButtonClickAction,
+}: {
+  onButtonClickAction: () => void;
+}) {
+  const [currentSession, setCurrentSession] = useState(0);
+  const controls = useAnimation();
+  const [glowPosition, setGlowPosition] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
 
   const sessions: TrainingSession[] = [
     {
@@ -35,7 +49,7 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
       intensity: "High",
       image: "/e1.png",
       bg: "bg-gradient-to-br from-orange-500 to-yellow-400",
-      icon: <Flame className="h-5 w-5" />
+      icon: <Flame className="h-5 w-5" />,
     },
     {
       id: "s2",
@@ -46,7 +60,7 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
       intensity: "Extreme",
       image: "/e2.png",
       bg: "bg-gradient-to-br from-blue-600 to-purple-700",
-      icon: <Zap className="h-5 w-5" />
+      icon: <Zap className="h-5 w-5" />,
     },
     {
       id: "s3",
@@ -57,7 +71,7 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
       intensity: "Medium",
       image: "/e3.png",
       bg: "bg-gradient-to-br from-gray-800 to-blue-900",
-      icon: <Sword className="h-5 w-5" />
+      icon: <Sword className="h-5 w-5" />,
     },
     {
       id: "s4",
@@ -68,7 +82,7 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
       intensity: "High",
       image: "/e4.png",
       bg: "bg-gradient-to-br from-red-500 to-yellow-500",
-      icon: <Dumbbell className="h-5 w-5" />
+      icon: <Dumbbell className="h-5 w-5" />,
     },
     {
       id: "s5",
@@ -79,80 +93,82 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
       intensity: "Legendary",
       image: "/e5.png",
       bg: "bg-gradient-to-br from-yellow-400 to-red-500",
-      icon: <Shield className="h-5 w-5" />
-    }
-  ]
+      icon: <Shield className="h-5 w-5" />,
+    },
+  ];
 
   // Auto-rotate sessions every 7 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      nextSession()
-    }, 7000)
-    return () => clearInterval(interval)
-  }, [currentSession])
+      nextSession();
+    }, 7000);
+    return () => clearInterval(interval);
+  }, [currentSession]);
 
   const nextSession = () => {
-    controls.start("exit")
+    controls.start("exit");
     setTimeout(() => {
-      setCurrentSession((prev) => (prev + 1) % sessions.length)
-      controls.start("enter")
-      onButtonClick()
-    }, 300)
-  }
+      setCurrentSession((prev) => (prev + 1) % sessions.length);
+      controls.start("enter");
+      onButtonClickAction();
+    }, 300);
+  };
 
   const prevSession = () => {
-    controls.start("exit")
+    controls.start("exit");
     setTimeout(() => {
-      setCurrentSession((prev) => (prev - 1 + sessions.length) % sessions.length)
-      controls.start("enter")
-      onButtonClick()
-    }, 300)
-  }
+      setCurrentSession(
+        (prev) => (prev - 1 + sessions.length) % sessions.length
+      );
+      controls.start("enter");
+      onButtonClickAction();
+    }, 300);
+  };
 
   // Handle mouse movement for cyber glow effect
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
+    const rect = e.currentTarget.getBoundingClientRect();
     setGlowPosition({
       x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    })
-    setIsHovered(true)
-  }
+      y: e.clientY - rect.top,
+    });
+    setIsHovered(true);
+  };
 
   const handleMouseLeave = () => {
-    setIsHovered(false)
-  }
+    setIsHovered(false);
+  };
 
   // Intensity badge animation
   const intensityAnimation = {
     initial: { scale: 0.8, opacity: 0 },
-    animate: { 
+    animate: {
       scale: [1, 1.1, 1],
       opacity: 1,
-      transition: { duration: 0.5 }
-    }
-  }
+      transition: { duration: 0.5 },
+    },
+  };
 
   return (
     <Card className="overflow-hidden border border-purple-500/20 bg-black/40 backdrop-blur-md">
       <div className="p-6">
         <div className="mb-4 flex items-center justify-between">
-          <motion.h3 
+          <motion.h3
             className="flex items-center text-lg font-bold text-white"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
             <motion.span
-              animate={{ 
+              animate={{
                 rotate: [0, 15, -15, 0],
-                transition: { duration: 0.7, repeat: Infinity, repeatDelay: 4 }
+                transition: { duration: 0.7, repeat: Infinity, repeatDelay: 4 },
               }}
             >
               <Calendar className="mr-2 h-5 w-5 text-purple-400" />
             </motion.span>
             <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-             TRAINING SCHEDULE
+              TRAINING SCHEDULE
             </span>
           </motion.h3>
           <div className="flex space-x-2">
@@ -179,7 +195,7 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
           </div>
         </div>
 
-        <div 
+        <div
           className="relative h-[400px] overflow-hidden rounded-lg border border-purple-500/20"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
@@ -187,10 +203,18 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
           {/* Cyber grid background */}
           <div className="absolute inset-0 opacity-10">
             {Array.from({ length: 15 }).map((_, i) => (
-              <div key={`h-${i}`} className="absolute top-0 left-0 right-0 h-px bg-purple-500" style={{ top: `${i * 7}%` }} />
+              <div
+                key={`h-${i}`}
+                className="absolute top-0 left-0 right-0 h-px bg-purple-500"
+                style={{ top: `${i * 7}%` }}
+              />
             ))}
             {Array.from({ length: 15 }).map((_, i) => (
-              <div key={`v-${i}`} className="absolute top-0 left-0 bottom-0 w-px bg-purple-500" style={{ left: `${i * 7}%` }} />
+              <div
+                key={`v-${i}`}
+                className="absolute top-0 left-0 bottom-0 w-px bg-purple-500"
+                style={{ left: `${i * 7}%` }}
+              />
             ))}
           </div>
 
@@ -203,7 +227,7 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
                 x: Math.random() * 300,
                 y: Math.random() * 400,
                 width: Math.random() * 4 + 2,
-                height: Math.random() * 4 + 2
+                height: Math.random() * 4 + 2,
               }}
               animate={{
                 y: [0, -100, -200, -300, -400, 0],
@@ -211,22 +235,22 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
                 transition: {
                   duration: Math.random() * 10 + 10,
                   repeat: Infinity,
-                  repeatType: "loop"
-                }
+                  repeatType: "loop",
+                },
               }}
             />
           ))}
 
           {/* Dynamic cyber glow */}
           {isHovered && (
-            <motion.div 
+            <motion.div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: `radial-gradient(300px at ${glowPosition.x}px ${glowPosition.y}px, rgba(139, 92, 246, 0.2), transparent 80%)`
+                background: `radial-gradient(300px at ${glowPosition.x}px ${glowPosition.y}px, rgba(139, 92, 246, 0.2), transparent 80%)`,
               }}
               animate={{
                 opacity: [0.1, 0.3, 0.1],
-                transition: { duration: 3, repeat: Infinity }
+                transition: { duration: 3, repeat: Infinity },
               }}
             />
           )}
@@ -239,7 +263,7 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
               exit="exit"
               variants={{
                 enter: { opacity: 1, y: 0 },
-                exit: { opacity: 0, y: -50 }
+                exit: { opacity: 0, y: -50 },
               }}
               transition={{ duration: 0.5 }}
               className={`relative h-full w-full ${sessions[currentSession].bg}`}
@@ -250,20 +274,20 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
                 style={{
                   backgroundImage: `url(${sessions[currentSession].image})`,
                   backgroundSize: "cover",
-                  backgroundPosition: "center"
+                  backgroundPosition: "center",
                 }}
                 animate={{
                   scale: isHovered ? 1.05 : 1,
-                  transition: { duration: 0.5 }
+                  transition: { duration: 0.5 },
                 }}
               />
 
               {/* Digital noise overlay */}
-              <div className="absolute inset-0 bg-[url('/digital-noise.png')] opacity-5 mix-blend-overlay pointer-events-none" />
+              <div className="absolute inset-0 opacity-5 mix-blend-overlay pointer-events-none" />
 
               {/* Content overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-              
+
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <motion.div
                   className="mb-2 flex items-center"
@@ -294,7 +318,9 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
                     animate="animate"
                   >
                     {sessions[currentSession].icon}
-                    <span className="ml-1">{sessions[currentSession].intensity}</span>
+                    <span className="ml-1">
+                      {sessions[currentSession].intensity}
+                    </span>
                   </motion.span>
                 </motion.div>
 
@@ -304,7 +330,10 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
                 >
-                  Anime: <span className="text-cyan-300">{sessions[currentSession].anime}</span>
+                  Anime:{" "}
+                  <span className="text-cyan-300">
+                    {sessions[currentSession].anime}
+                  </span>
                 </motion.p>
 
                 <motion.p
@@ -330,8 +359,8 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
                           transition: {
                             duration: 1.5,
                             repeat: Infinity,
-                            delay: i * 0.05
-                          }
+                            delay: i * 0.05,
+                          },
                         }}
                       />
                     ))}
@@ -352,8 +381,8 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
                     index === currentSession ? "bg-cyan-400" : "bg-white/30"
                   )}
                   onClick={() => {
-                    setCurrentSession(index)
-                    onButtonClick()
+                    setCurrentSession(index);
+                    onButtonClickAction();
                   }}
                   whileHover={{ scale: 1.5 }}
                 />
@@ -363,5 +392,5 @@ export function AnimeTrainingSchedule({ onButtonClick }: { onButtonClick: () => 
         </div>
       </div>
     </Card>
-  )
+  );
 }

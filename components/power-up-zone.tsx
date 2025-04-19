@@ -1,41 +1,56 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Dumbbell, Headphones, CloudLightningIcon as Lightning, Music, Play, Salad, Zap } from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { cn } from "@/lib/utils"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Dumbbell,
+  Headphones,
+  CloudLightningIcon as Lightning,
+  Music,
+  Play,
+  Salad,
+  Zap,
+} from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 interface PowerUpZoneProps {
-  onButtonClick: () => void
+  onButtonClickAction: () => void;
 }
 
-export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
-  const [activeTab, setActiveTab] = useState("workouts")
+export function PowerUpZone({ onButtonClickAction }: PowerUpZoneProps) {
+  const [activeTab, setActiveTab] = useState("workouts");
 
+  // Handle tab change and trigger button action
   const handleTabChange = (value: string) => {
-    setActiveTab(value)
-    onButtonClick()
-  }
+    setActiveTab(value);
+    onButtonClickAction();
+  };
 
   return (
     <Card className="overflow-hidden border border-purple-500/20 bg-black/40 backdrop-blur-md">
       <div className="p-6">
+        {/* Header Section */}
         <div className="mb-6 flex items-center">
           <Lightning className="mr-2 h-6 w-6 text-yellow-400" />
           <h2 className="text-2xl font-bold text-white">Power Up Zone</h2>
         </div>
 
-        <Tabs defaultValue="workouts" className="w-full" onValueChange={handleTabChange}>
+        {/* Tabs for Workouts, Playlists, and Nutrition */}
+        <Tabs
+          defaultValue="workouts"
+          className="w-full"
+          onValueChange={handleTabChange}
+        >
           <TabsList className="grid w-full grid-cols-3 bg-purple-950/50 backdrop-blur-md">
             <TabsTrigger
               value="workouts"
               className={cn(
                 "data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600",
-                "data-[state=active]:text-white",
+                "data-[state=active]:text-white"
               )}
             >
               <Dumbbell className="mr-2 h-4 w-4" />
@@ -45,7 +60,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
               value="playlists"
               className={cn(
                 "data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600",
-                "data-[state=active]:text-white",
+                "data-[state=active]:text-white"
               )}
             >
               <Music className="mr-2 h-4 w-4" />
@@ -55,7 +70,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
               value="nutrition"
               className={cn(
                 "data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600",
-                "data-[state=active]:text-white",
+                "data-[state=active]:text-white"
               )}
             >
               <Salad className="mr-2 h-4 w-4" />
@@ -63,6 +78,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
             </TabsTrigger>
           </TabsList>
 
+          {/* Workouts Tab Content */}
           <TabsContent value="workouts" className="mt-4">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <WorkoutCard
@@ -72,7 +88,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 intensity="High"
                 exercises={5}
                 image="/fit2.png?height=200&width=400"
-                onButtonClick={onButtonClick}
+                onButtonClick={onButtonClickAction}
               />
               <WorkoutCard
                 title="Neural Network HIIT"
@@ -81,7 +97,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 intensity="Very High"
                 exercises={8}
                 image="/neural.png"
-                onButtonClick={onButtonClick}
+                onButtonClick={onButtonClickAction}
               />
               <WorkoutCard
                 title="Digital Detox Yoga"
@@ -90,7 +106,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 intensity="Low"
                 exercises={12}
                 image="/detox1.png"
-                onButtonClick={onButtonClick}
+                onButtonClick={onButtonClickAction}
               />
               <WorkoutCard
                 title="Quantum Core Circuit"
@@ -99,11 +115,12 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 intensity="Medium"
                 exercises={6}
                 image="/core.png"
-                onButtonClick={onButtonClick}
+                onButtonClick={onButtonClickAction}
               />
             </div>
           </TabsContent>
 
+          {/* Playlists Tab Content */}
           <TabsContent value="playlists" className="mt-4">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <PlaylistCard
@@ -112,7 +129,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 duration="48 min"
                 mood="Energetic"
                 image="/play1.png"
-                onButtonClick={onButtonClick}
+                onButtonClick={onButtonClickAction}
               />
               <PlaylistCard
                 title="Cyberpunk Beats"
@@ -120,7 +137,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 duration="62 min"
                 mood="Intense"
                 image="/play2.png"
-                onButtonClick={onButtonClick}
+                onButtonClick={onButtonClickAction}
               />
               <PlaylistCard
                 title="Digital Zen"
@@ -128,7 +145,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 duration="55 min"
                 mood="Focused"
                 image="/play3.png"
-                onButtonClick={onButtonClick}
+                onButtonClick={onButtonClickAction}
               />
               <PlaylistCard
                 title="Neon Cardio"
@@ -136,11 +153,12 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 duration="67 min"
                 mood="Upbeat"
                 image="/play4.png"
-                onButtonClick={onButtonClick}
+                onButtonClick={onButtonClickAction}
               />
             </div>
           </TabsContent>
 
+          {/* Nutrition Tab Content */}
           <TabsContent value="nutrition" className="mt-4">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <NutritionCard
@@ -150,7 +168,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 carbs={40}
                 fats={15}
                 image="/food1.png"
-                onButtonClick={onButtonClick}
+                onButtonClick={onButtonClickAction}
               />
               <NutritionCard
                 title="Green Machine Smoothie"
@@ -159,7 +177,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 carbs={45}
                 fats={8}
                 image="/food3.png"
-                onButtonClick={onButtonClick}
+                onButtonClick={onButtonClickAction}
               />
               <NutritionCard
                 title="Cyber Creatine Oats"
@@ -168,7 +186,7 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 carbs={65}
                 fats={12}
                 image="/food2.png"
-                onButtonClick={onButtonClick}
+                onButtonClick={onButtonClickAction}
               />
               <NutritionCard
                 title="Recovery Ramen"
@@ -177,27 +195,36 @@ export function PowerUpZone({ onButtonClick }: PowerUpZoneProps) {
                 carbs={70}
                 fats={18}
                 image="/food4.png"
-                onButtonClick={onButtonClick}
+                onButtonClick={onButtonClickAction}
               />
             </div>
           </TabsContent>
         </Tabs>
       </div>
     </Card>
-  )
+  );
 }
 
 interface WorkoutCardProps {
-  title: string
-  level: string
-  duration: string
-  intensity: string
-  exercises: number
-  image: string
-  onButtonClick: () => void
+  title: string;
+  level: string;
+  duration: string;
+  intensity: string;
+  exercises: number;
+  image: string;
+  onButtonClick: () => void;
 }
 
-function WorkoutCard({ title, level, duration, intensity, exercises, image, onButtonClick }: WorkoutCardProps) {
+// WorkoutCard Component
+function WorkoutCard({
+  title,
+  level,
+  duration,
+  intensity,
+  exercises,
+  image,
+  onButtonClick,
+}: WorkoutCardProps) {
   return (
     <motion.div
       whileHover={{ y: -5, transition: { duration: 0.2 } }}
@@ -212,13 +239,22 @@ function WorkoutCard({ title, level, duration, intensity, exercises, image, onBu
 
       <div className="absolute inset-x-0 bottom-0 p-4">
         <div className="mb-2 flex flex-wrap gap-2">
-          <Badge variant="outline" className="border-purple-500/30 bg-black/50 text-purple-300">
+          <Badge
+            variant="outline"
+            className="border-purple-500/30 bg-black/50 text-purple-300"
+          >
             {level}
           </Badge>
-          <Badge variant="outline" className="border-blue-500/30 bg-black/50 text-blue-300">
+          <Badge
+            variant="outline"
+            className="border-blue-500/30 bg-black/50 text-blue-300"
+          >
             {duration}
           </Badge>
-          <Badge variant="outline" className="border-pink-500/30 bg-black/50 text-pink-300">
+          <Badge
+            variant="outline"
+            className="border-pink-500/30 bg-black/50 text-pink-300"
+          >
             {intensity}
           </Badge>
         </div>
@@ -235,19 +271,27 @@ function WorkoutCard({ title, level, duration, intensity, exercises, image, onBu
         </Button>
       </div>
     </motion.div>
-  )
+  );
 }
 
 interface PlaylistCardProps {
-  title: string
-  tracks: number
-  duration: string
-  mood: string
-  image: string
-  onButtonClick: () => void
+  title: string;
+  tracks: number;
+  duration: string;
+  mood: string;
+  image: string;
+  onButtonClick: () => void;
 }
 
-function PlaylistCard({ title, tracks, duration, mood, image, onButtonClick }: PlaylistCardProps) {
+// PlaylistCard Component
+function PlaylistCard({
+  title,
+  tracks,
+  duration,
+  mood,
+  image,
+  onButtonClick,
+}: PlaylistCardProps) {
   return (
     <motion.div
       whileHover={{ y: -5, transition: { duration: 0.2 } }}
@@ -262,19 +306,30 @@ function PlaylistCard({ title, tracks, duration, mood, image, onButtonClick }: P
 
       <div className="absolute inset-x-0 bottom-0 p-4">
         <div className="mb-2 flex flex-wrap gap-2">
-          <Badge variant="outline" className="border-cyan-500/30 bg-black/50 text-cyan-300">
+          <Badge
+            variant="outline"
+            className="border-cyan-500/30 bg-black/50 text-cyan-300"
+          >
             {tracks} tracks
           </Badge>
-          <Badge variant="outline" className="border-blue-500/30 bg-black/50 text-blue-300">
+          <Badge
+            variant="outline"
+            className="border-blue-500/30 bg-black/50 text-blue-300"
+          >
             {duration}
           </Badge>
-          <Badge variant="outline" className="border-teal-500/30 bg-black/50 text-teal-300">
+          <Badge
+            variant="outline"
+            className="border-teal-500/30 bg-black/50 text-teal-300"
+          >
             {mood}
           </Badge>
         </div>
 
         <h3 className="mb-1 text-lg font-bold text-white">{title}</h3>
-        <p className="mb-3 text-sm text-gray-300">Perfect for intense workouts</p>
+        <p className="mb-3 text-sm text-gray-300">
+          Perfect for intense workouts
+        </p>
 
         <Button
           className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 text-white hover:from-cyan-500 hover:to-blue-500"
@@ -289,20 +344,29 @@ function PlaylistCard({ title, tracks, duration, mood, image, onButtonClick }: P
         <Headphones className="h-5 w-5 text-cyan-400" />
       </div>
     </motion.div>
-  )
+  );
 }
 
 interface NutritionCardProps {
-  title: string
-  calories: number
-  protein: number
-  carbs: number
-  fats: number
-  image: string
-  onButtonClick: () => void
+  title: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  image: string;
+  onButtonClick: () => void;
 }
 
-function NutritionCard({ title, calories, protein, carbs, fats, image, onButtonClick }: NutritionCardProps) {
+// NutritionCard Component
+function NutritionCard({
+  title,
+  calories,
+  protein,
+  carbs,
+  fats,
+  image,
+  onButtonClick,
+}: NutritionCardProps) {
   return (
     <motion.div
       whileHover={{ y: -5, transition: { duration: 0.2 } }}
@@ -317,22 +381,36 @@ function NutritionCard({ title, calories, protein, carbs, fats, image, onButtonC
 
       <div className="absolute inset-x-0 bottom-0 p-4">
         <div className="mb-2 flex flex-wrap gap-2">
-          <Badge variant="outline" className="border-green-500/30 bg-black/50 text-green-300">
+          <Badge
+            variant="outline"
+            className="border-green-500/30 bg-black/50 text-green-300"
+          >
             {calories} cal
           </Badge>
-          <Badge variant="outline" className="border-blue-500/30 bg-black/50 text-blue-300">
+          <Badge
+            variant="outline"
+            className="border-blue-500/30 bg-black/50 text-blue-300"
+          >
             P: {protein}g
           </Badge>
-          <Badge variant="outline" className="border-yellow-500/30 bg-black/50 text-yellow-300">
+          <Badge
+            variant="outline"
+            className="border-yellow-500/30 bg-black/50 text-yellow-300"
+          >
             C: {carbs}g
           </Badge>
-          <Badge variant="outline" className="border-red-500/30 bg-black/50 text-red-300">
+          <Badge
+            variant="outline"
+            className="border-red-500/30 bg-black/50 text-red-300"
+          >
             F: {fats}g
           </Badge>
         </div>
 
         <h3 className="mb-1 text-lg font-bold text-white">{title}</h3>
-        <p className="mb-3 text-sm text-gray-300">High protein, nutrient-dense</p>
+        <p className="mb-3 text-sm text-gray-300">
+          High protein, nutrient-dense
+        </p>
 
         <Button
           className="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white hover:from-green-500 hover:to-teal-500"
@@ -343,5 +421,5 @@ function NutritionCard({ title, calories, protein, carbs, fats, image, onButtonC
         </Button>
       </div>
     </motion.div>
-  )
+  );
 }

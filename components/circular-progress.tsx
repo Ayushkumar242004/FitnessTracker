@@ -1,35 +1,38 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 interface CircularProgressProps {
-  value: number
-  size: number
-  strokeWidth: number
-  label?: string
-  sublabel?: string
+  value: number;
+  size: number;
+  strokeWidth: number;
+  label?: string;
+  sublabel?: string;
 }
 
-export function CircularProgress({ value, size, strokeWidth, label, sublabel }: CircularProgressProps) {
-  const [progress, setProgress] = useState(0)
+export function CircularProgress({
+  value,
+  size,
+  strokeWidth,
+  label,
+  sublabel,
+}: CircularProgressProps) {
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setProgress(value)
-    }, 500)
+    const timer = setTimeout(() => setProgress(value), 500);
+    return () => clearTimeout(timer);
+  }, [value]);
 
-    return () => clearTimeout(timer)
-  }, [value])
-
-  const radius = (size - strokeWidth) / 2
-  const circumference = radius * 2 * Math.PI
-  const strokeDashoffset = circumference - (progress / 100) * circumference
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference * (1 - progress / 100);
 
   return (
     <div className="relative" style={{ width: size, height: size }}>
-      {/* Background circle */}
       <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
+        {/* Background circle */}
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -71,7 +74,7 @@ export function CircularProgress({ value, size, strokeWidth, label, sublabel }: 
         }}
       />
 
-      {/* Text in the center */}
+      {/* Center text */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <motion.span
           className="text-3xl font-bold text-white"
@@ -82,8 +85,10 @@ export function CircularProgress({ value, size, strokeWidth, label, sublabel }: 
           {progress}%
         </motion.span>
         {label && <span className="text-sm text-purple-300">{label}</span>}
-        {sublabel && <span className="text-xs text-purple-400">{sublabel}</span>}
+        {sublabel && (
+          <span className="text-xs text-purple-400">{sublabel}</span>
+        )}
       </div>
     </div>
-  )
+  );
 }
